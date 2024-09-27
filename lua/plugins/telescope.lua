@@ -65,6 +65,7 @@ return {
 		local builtin = require("telescope.builtin")
 		vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
 		vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
+		-- this enables finding files that are in .gitignore when they are also in .ignore
 		vim.keymap.set("n", "<leader>sf", function()
 			builtin.find_files({ find_command = { "rg", "--files", "--hidden", "-g", "!.git" } })
 		end, { desc = "[S]earch [F]iles" })
