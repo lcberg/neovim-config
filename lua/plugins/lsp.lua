@@ -1,3 +1,4 @@
+-- nvm required
 return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
