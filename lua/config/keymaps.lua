@@ -1,5 +1,6 @@
 local keymap = vim.keymap
 
+keymap.set("n", "<leader>e", ":Ex")
 -- wrap helper
 keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
