@@ -134,7 +134,6 @@ return {
 		-- nvm current was not working somehow
 		local handle = io.popen("node -v")
 		local node_version = handle:read("*a")
-		vim.api.nvim_echo({ { node_version, "Normal" } }, false, {})
 		handle:close()
 
 		-- Clean up the node version string (remove any trailing newline)
@@ -144,8 +143,6 @@ return {
 			.. "/.nvm/versions/node/"
 			.. node_version
 			.. "/lib/node_modules/@vue/typescript-plugin"
-
-		vim.api.nvim_echo({ { "TS plugin path: " .. vue_ts_plugin_path, "Normal" } }, false, {})
 
 		local servers =
 			{
