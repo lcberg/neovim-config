@@ -1,5 +1,6 @@
 return {
 	"nvim-lualine/lualine.nvim",
+	event = { "BufReadPre", "BufNewFile" },
 	config = function()
 		require("lualine").setup({
 			icons_enabled = false,
