@@ -191,6 +191,7 @@ return {
 					cmd = { "vscode-eslint-language-server", "--stdio" },
 				},
 				jsonls = {},
+				jdtls = {},
 			},
 			-- Ensure the servers and tools above are installed
 			--  To check the current status of installed tools and/or manually install

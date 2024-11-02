@@ -18,6 +18,7 @@ return { -- Autoformat
 			typescript = { "prettier" },
 			vue = { "prettier" },
 			python = { "isort", "black" },
+			java = { "google-java-format" },
 			-- Conform can also run multiple formatters sequentially
 			-- python = { "isort", "black" },
 			--
