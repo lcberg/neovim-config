@@ -31,7 +31,7 @@ return {
 							return vim.fn.getcwd()
 						end,
 					}),
-					["neotest-java"] = {},
+					require("neotest-java"),
 				},
 			})
 		end,
