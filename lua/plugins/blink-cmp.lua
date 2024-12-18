@@ -21,7 +21,7 @@ return {
 		-- your own keymap.
 		keymap = {
 			preset = "default",
-			["<Tab>"] = { "select_and_accept" },
+			["<Tab>"] = { "select_and_accept", "fallback" },
 			["<C-u>"] = { "scroll_documentation_up", "fallback" },
 			["<C-d>"] = { "scroll_documentation_down", "fallback" },
 			["<C-h>"] = { "snippet_forward", "fallback" },
@@ -41,7 +41,12 @@ return {
 		-- default list of enabled providers defined so that you can extend it
 		-- elsewhere in your config, without redefining it, via `opts_extend`
 		sources = {
-			default = { "lsp", "path", "snippets", "buffer" },
+			default = { "lsp", "path", "snippets", "buffer", "lazydev" },
+			providers = {
+				-- dont show LuaLS require statements when lazydev has items
+				lsp = { fallback_for = { "lazydev" } },
+				lazydev = { name = "LazyDev", module = "lazydev.integrations.blink" },
+			},
 			-- optionally disable cmdline completions
 			-- cmdline = {},
 		},
