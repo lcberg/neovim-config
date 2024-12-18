@@ -24,6 +24,8 @@ return {
 			["<Tab>"] = { "select_and_accept" },
 			["<C-u>"] = { "scroll_documentation_up", "fallback" },
 			["<C-d>"] = { "scroll_documentation_down", "fallback" },
+			["<C-h>"] = { "snippet_forward", "fallback" },
+			["<C-l>"] = { "snippet_backward", "fallback" },
 		},
 
 		appearance = {
