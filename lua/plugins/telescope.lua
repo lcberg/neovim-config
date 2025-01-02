@@ -59,6 +59,13 @@ return {
 					require("telescope.themes").get_dropdown(),
 				},
 			},
+			defaults = {
+				mappings = {
+					n = {
+						["q"] = require("telescope.actions").close,
+					},
+				},
+			},
 		})
 
 		-- Enable telescope extensions, if they are installed
