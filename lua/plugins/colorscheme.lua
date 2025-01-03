@@ -1,6 +1,7 @@
 return {
 	"catppuccin/nvim",
 	name = "catppuccin",
+	enabled = false,
 	priority = 1000,
 	config = function()
 		require("catppuccin").setup({
@@ -25,6 +26,10 @@ return {
 					base = "#000000",
 					mantle = "#000000",
 					crust = "#eeeeee",
+					-- blue is for functions
+					blue = "#333ddd",
+					-- strings
+					green = "#5faf00",
 				},
 			},
 			custom_highlights = {
