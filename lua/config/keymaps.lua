@@ -93,3 +93,16 @@ end, { desc = "Stop" })
 keymap.set("n", "<leader>tW", function()
 	require("neotest").watch.toggle(vim.fn.expand("%"))
 end, { desc = "Toggle watch" })
+
+local diffview_open = false
+
+local function toggle_diffview()
+	if diffview_open then
+		vim.cmd("DiffviewClose")
+	else
+		vim.cmd("DiffviewFileHistory %")
+	end
+	diffview_open = not diffview_open
+end
+
+keymap.set("n", "<leader>gh", toggle_diffview, { noremap = true, silent = true, desc = "Git File History" })
