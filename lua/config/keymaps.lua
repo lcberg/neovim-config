@@ -106,3 +106,4 @@ local function toggle_diffview()
 end
 
 keymap.set("n", "<leader>gh", toggle_diffview, { noremap = true, silent = true, desc = "Git File History" })
+keymap.set("n", "<leader>gc", "<cmd>DiffviewClose<CR>", { noremap = true, silent = true, desc = "Close Diffview" })
