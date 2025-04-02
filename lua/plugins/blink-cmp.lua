@@ -5,7 +5,7 @@ return {
 	dependencies = "rafamadriz/friendly-snippets",
 
 	-- use a release tag to download pre-built binaries
-	version = "v0.*",
+	version = "1.*",
 	-- OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
 	-- build = 'cargo build --release',
 	-- If you use nix, you can build from source using latest nightly rust with:
@@ -21,11 +21,18 @@ return {
 		-- your own keymap.
 		keymap = {
 			preset = "default",
-			["<Tab>"] = { "select_and_accept", "fallback" },
+			-- ["<Tab>"] = { "select_and_accept", "fallback" },
+			["<Tab>"] = {
+				function(cmp)
+					cmp.select_and_accept()
+					cmp.show_signature()
+				end,
+			},
 			["<C-u>"] = { "scroll_documentation_up", "fallback" },
 			["<C-d>"] = { "scroll_documentation_down", "fallback" },
 			["<C-h>"] = { "snippet_forward", "fallback" },
 			["<C-l>"] = { "snippet_backward", "fallback" },
+			["<C-s>"] = { "show_signature", "hide_signature", "fallback" },
 		},
 
 		appearance = {
@@ -41,15 +48,27 @@ return {
 		-- default list of enabled providers defined so that you can extend it
 		-- elsewhere in your config, without redefining it, via `opts_extend`
 		sources = {
-			default = { "lsp", "path", "snippets", "buffer", "lazydev" },
+			default = { "lsp", "buffer", "snippets", "lazydev", "path" },
 			providers = {
-				-- dont show LuaLS require statements when lazydev has items
-				lsp = { fallback_for = { "lazydev" } },
-				lazydev = { name = "LazyDev", module = "lazydev.integrations.blink" },
+				lazydev = {
+					name = "LazyDev",
+					module = "lazydev.integrations.blink",
+					score_offset = 100,
+				},
 			},
 			-- optionally disable cmdline completions
 			-- cmdline = {},
 		},
+		signature = {
+			enabled = true,
+			trigger = {
+				enabled = true,
+				show_on_keyword = true,
+				show_on_trigger_character = true,
+				show_on_insert = true,
+			},
+		},
+		fuzzy = { implementation = "prefer_rust_with_warning" },
 
 		-- experimental signature help support
 		-- signature = { enabled = true }
