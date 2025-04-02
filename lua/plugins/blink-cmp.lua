@@ -26,7 +26,9 @@ return {
 				function(cmp)
 					cmp.select_and_accept()
 					cmp.show_signature()
+					return
 				end,
+				"fallback",
 			},
 			["<C-u>"] = { "scroll_documentation_up", "fallback" },
 			["<C-d>"] = { "scroll_documentation_down", "fallback" },
