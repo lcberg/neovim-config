@@ -146,6 +146,8 @@ return {
 			.. node_version
 			.. "/lib/node_modules/@vue/typescript-plugin"
 
+		local util = require("lspconfig.util")
+
 		local servers =
 			{
 				-- clangd = {},
@@ -180,12 +182,15 @@ return {
 								languages = { "javascript", "typescript", "vue" },
 							},
 						},
+						-- hostInfo = "neovim",
 					},
 					filetypes = {
 						"javascript",
 						"typescript",
 						"vue",
 					},
+					root_dir = util.root_pattern("tsconfig.json", "package.json", ".git"),
+					-- single_file_support = true,
 				},
 				pyright = {},
 				lemminx = {},
