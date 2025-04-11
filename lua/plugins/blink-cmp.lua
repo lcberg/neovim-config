@@ -24,9 +24,13 @@ return {
 			-- ["<Tab>"] = { "select_and_accept", "fallback" },
 			["<Tab>"] = {
 				function(cmp)
-					cmp.select_and_accept()
-					cmp.show_signature()
-					return
+					if cmp.is_menu_visible() then
+						cmp.select_and_accept()
+						cmp.show_signature()
+						return true
+					else
+						return
+					end
 				end,
 				"fallback",
 			},
