@@ -107,3 +107,40 @@ end
 
 keymap.set("n", "<leader>gh", toggle_diffview, { noremap = true, silent = true, desc = "Git File History" })
 keymap.set("n", "<leader>gc", "<cmd>DiffviewClose<CR>", { noremap = true, silent = true, desc = "Close Diffview" })
+
+-- quickly create string arrays
+vim.keymap.set("i", "<C-l>", function()
+	vim.cmd("normal! bell")
+	local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+	local line = vim.api.nvim_get_current_line()
+
+	local function add_on_same_line()
+		local new_line = line:sub(1, col) .. ", ''" .. line:sub(col + 1)
+		vim.api.nvim_set_current_line(new_line)
+		vim.api.nvim_win_set_cursor(0, { row, col + 3 })
+	end
+
+	local function add_on_new_line()
+		local indent = line:match("^%s*") or ""
+		-- Append comma to current line if not already present
+		if not line:match(",%s*$") then
+			vim.api.nvim_set_current_line(line .. ",")
+		end
+		vim.cmd("normal! o")
+
+		-- Insert a new line below with indentation and empty string
+		local new_line = indent .. "''"
+		vim.api.nvim_set_current_line(new_line)
+
+		-- Move cursor inside the new quotes
+		vim.api.nvim_win_set_cursor(0, { row + 1, #indent + 1 })
+	end
+
+	if line:match("^%s*'[^']*'%s*,?%s*$") then
+		-- Line has only one string element → vertical layout
+		add_on_new_line()
+	else
+		-- Otherwise, treat it as horizontal layout
+		add_on_same_line()
+	end
+end, { desc = "Add string entry", expr = false })
