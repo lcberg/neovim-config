@@ -43,7 +43,7 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
 -- keep cursor in middle during searching
 vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
 
 -- toggle neotree
 keymap.set("n", "<C-b>", "<Cmd>Neotree toggle<CR>")
