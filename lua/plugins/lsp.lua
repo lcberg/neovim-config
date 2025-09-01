@@ -33,13 +33,24 @@ return {
 					vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 				end
 
+				local builtin = require("telescope.builtin")
+
 				-- Jump to the definition of the word under your cursor.
 				--  This is where a variable was first declared, or where a function is defined, etc.
 				--  To jump back, press <C-t>.
 				map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
 
 				-- Find references for the word under your cursor.
-				map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+				map("gr", function()
+					builtin.lsp_references({
+						layout_config = {
+							width = 0.95,
+						},
+						-- fname_width = 50,
+						-- path_display = { "smart" },
+						show_line = false,
+					})
+				end, "[G]oto [R]eferences")
 
 				-- Jump to the implementation of the word under your cursor.
 				--  Useful when your language has ways of declaring types without an actual implementation.
@@ -189,7 +200,20 @@ return {
 						"typescript",
 						"vue",
 					},
-					root_dir = util.root_pattern("tsconfig.json", "package.json", ".git"),
+					root_dir = function(fname)
+						local root = nil
+						local client_root = util.root_pattern("package.json", "tsconfig.json")(fname)
+						if client_root and client_root:match("client$") then
+							root = client_root
+						else
+							root = util.root_pattern("package.json", "tsconfig.json", ".git")(fname)
+						end
+						-- print("ts_ls root_dir = " .. root)
+						-- vim.schedule(function()
+						-- 	vim.notify("ts_ls root_dir = " .. root, vim.log.levels.INFO)
+						-- end)
+						return root
+					end,
 					-- single_file_support = true,
 				},
 				pyright = {},
