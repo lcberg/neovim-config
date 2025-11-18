@@ -15,6 +15,7 @@ return { -- Highlight, edit, and navigate code
 			"css",
 			"scss",
 			"yaml",
+			"vue"
 		},
 		-- Autoinstall languages that are not installed
 		auto_install = true,
