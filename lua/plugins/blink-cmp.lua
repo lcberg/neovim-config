@@ -1,5 +1,6 @@
 return {
 	"saghen/blink.cmp",
+	enabled = false,
 	lazy = false, -- lazy loading handled internally
 	-- optional: provides snippets for the snippet source
 	dependencies = "rafamadriz/friendly-snippets",
@@ -21,7 +22,6 @@ return {
 		-- your own keymap.
 		opts.keymap = {
 			preset = "default",
-			-- ["<Tab>"] = { "select_and_accept", "fallback" },
 			["<Tab>"] = {
 				function(cmp)
 					if cmp.is_menu_visible() then
@@ -74,7 +74,8 @@ return {
 		-- default list of enabled providers defined so that you can extend it
 		-- elsewhere in your config, without redefining it, via `opts_extend`
 		opts.sources = {
-			default = { "lsp", "buffer", "snippets", "lazydev", "path" },
+			-- default = { "lsp", "path", "buffer", "snippets", "lazydev" },
+			default = { "lsp" },
 			providers = {
 				lazydev = {
 					name = "LazyDev",
@@ -96,29 +97,38 @@ return {
 		opts.completion = {
 			menu = {
 				draw = {
-					columns = { { "kind_icon" }, { "label", gap = 1 }, { "source" } },
+					columns = { { "kind_icon" }, { "label", gap = 1 }, { "source_name" } },
 					components = {
 						label = {
 							text = require("colorful-menu").blink_components_text,
 							highlight = require("colorful-menu").blink_components_highlight,
 						},
-						source = {
+						-- source icons
+						-- source = {
+						-- 	text = function(ctx)
+						-- 		local map = {
+						-- 			["lsp"] = "[]",
+						-- 			["path"] = "[󰉋]",
+						-- 			["snippets"] = "[]",
+						-- 		}
+						--
+						-- 		return map[ctx.item.source_id]
+						-- 	end,
+						-- 	highlight = "BlinkCmpDoc",
+						-- },
+						source_name = {
 							text = function(ctx)
-								local map = {
-									["lsp"] = "[]",
-									["path"] = "[󰉋]",
-									["snippets"] = "[]",
-								}
-
-								return map[ctx.item.source_id]
+								if ctx.source_id == "cmdline" then
+									return
+								end
+								return ctx.source_name:sub(1, 4)
 							end,
-							highlight = "BlinkCmpDoc",
 						},
 					},
 				},
 			},
 			documentation = {
-				auto_show = true,
+				auto_show = false,
 				auto_show_delay_ms = 100,
 				update_delay_ms = 50,
 				window = {
@@ -126,9 +136,6 @@ return {
 				},
 			},
 		}
-
-		-- experimental signature help support
-		-- signature = { enabled = true }
 	end,
 	-- allows extending the providers array elsewhere in your config
 	-- without having to redefine it
