@@ -36,34 +36,47 @@ return {
 			automatic_installation = false,
 		})
 
-		vim.lsp.config('vtsls', {
+		vim.lsp.config("vtsls", {
 			settings = {
 				vtsls = {
 					tsserver = {
 						globalPlugins = {
 							-- somehow if following the documentation and having vue_plugin = for this table, the plugin will not be configured correctly...
 							{
-								name = '@vue/typescript-plugin',
-								location = vim.fn.expand '$MASON/packages' ..
-									'/vue-language-server' .. '/node_modules/@vue/language-server',
-								languages = { 'vue' },
-								configNamespace = 'typescript',
-							}
+								name = "@vue/typescript-plugin",
+								location = vim.fn.expand("$MASON/packages")
+									.. "/vue-language-server"
+									.. "/node_modules/@vue/language-server",
+								languages = { "vue" },
+								configNamespace = "typescript",
+							},
 						},
 					},
 				},
 			},
-			filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+			filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
 			on_attach = function(client)
-				if vim.bo.filetype == 'vue' then
+				if vim.bo.filetype == "vue" then
 					client.server_capabilities.semanticTokensProvider.full = false
 				else
 					client.server_capabilities.semanticTokensProvider.full = true
 				end
-			end
-
+			end,
 		})
-		vim.lsp.enable({ "vtsls", "vue_ls" })
+
+		vim.lsp.enable({
+			"vtsls",
+			"vue_ls",
+			"lua_ls",
+			"lemminx",
+			"eslint-lsp",
+			"json-lsp",
+			"yaml-language-server",
+			"tailwindcss",
+			"prettier",
+			"css-lsp",
+			"stylua",
+		})
 
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
@@ -157,7 +170,7 @@ return {
 						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
 					end, "[T]oggle Inlay [H]ints")
 				end
-			end
+			end,
 		})
 	end,
 }
