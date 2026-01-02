@@ -13,6 +13,8 @@ return {
 			},
 		})
 		require("onedark").load()
+
+		vim.api.nvim_set_hl(0, "@lsp.type.modifier.java", { link = "@keyword" })
 	end,
 	init = function()
 		vim.cmd.colorscheme = "onedark"
