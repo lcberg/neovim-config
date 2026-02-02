@@ -96,3 +96,10 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.highlight.on_yank()
 	end,
 })
+
+-- add filetype support for .env .env.development, .env.example etc
+vim.filetype.add({
+	pattern = {
+		["%.env%..*"] = "bash",
+	},
+})
