@@ -6,4 +6,6 @@ vim.api.nvim_buf_set_keymap(
 	{}
 )
 
+vim.api.nvim_buf_set_keymap(0, "n", "<leader>rx", ":w<CR>:!NODE_ENV=development tsx ./%<CR>", {})
+
 vim.api.nvim_buf_set_keymap(0, "n", "<leader>tc", ":w<CR>:!npm run typecheck<CR>", {})
