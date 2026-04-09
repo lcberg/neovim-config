@@ -103,3 +103,5 @@ vim.filetype.add({
 		["%.env%..*"] = "bash",
 	},
 })
+
+vim.opt.formatoptions:remove({ "t" })
