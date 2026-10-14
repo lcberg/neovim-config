@@ -107,6 +107,15 @@ end
 
 keymap.set("n", "<leader>gh", toggle_diffview, { noremap = true, silent = true, desc = "Git File History" })
 keymap.set("n", "<leader>gc", "<cmd>DiffviewClose<CR>", { noremap = true, silent = true, desc = "Close Diffview" })
+keymap.set("n", "<leader>ld", function()
+	if require("diffview.lib").get_current_view() then
+		vim.cmd("DiffviewClose")
+	else
+		vim.cmd("DiffviewOpen")
+	end
+end, { noremap = true, silent = true, desc = "Toggle Diffview" })
+keymap.set("n", "<leader>do", "<cmd>DiffviewOpen<CR>", { noremap = true, silent = true, desc = "Open Diffview" })
+keymap.set("n", "<leader>dc", "<cmd>DiffviewClose<CR>", { noremap = true, silent = true, desc = "Close Diffview" })
 
 -- quickly create string arrays
 vim.keymap.set("i", "<C-l>", function()
