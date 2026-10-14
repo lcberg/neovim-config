@@ -4,5 +4,8 @@ return {
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 	},
-	opts = { signs = false },
+	config = function()
+		require("todo-comments").setup({ signs = false })
+		vim.keymap.set("n", "<leader>st", "<cmd>TodoTelescope<CR>")
+	end,
 }
